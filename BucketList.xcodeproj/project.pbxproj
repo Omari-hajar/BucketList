@@ -9,13 +9,16 @@
 /* Begin PBXBuildFile section */
 		CC39239127660FF800A086D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39239027660FF800A086D3 /* AppDelegate.swift */; };
 		CC39239327660FF800A086D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39239227660FF800A086D3 /* SceneDelegate.swift */; };
-		CC39239527660FF800A086D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39239427660FF800A086D3 /* ViewController.swift */; };
 		CC39239827660FF800A086D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC39239627660FF800A086D3 /* Main.storyboard */; };
 		CC39239A27660FFA00A086D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC39239927660FFA00A086D3 /* Assets.xcassets */; };
 		CC39239D27660FFA00A086D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC39239B27660FFA00A086D3 /* LaunchScreen.storyboard */; };
 		CC3923A827660FFA00A086D3 /* BucketListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923A727660FFA00A086D3 /* BucketListTests.swift */; };
 		CC3923B227660FFA00A086D3 /* BucketListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923B127660FFA00A086D3 /* BucketListUITests.swift */; };
 		CC3923B427660FFA00A086D3 /* BucketListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923B327660FFA00A086D3 /* BucketListUITestsLaunchTests.swift */; };
+		CC3923C1276610E200A086D3 /* BucketListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923C0276610E200A086D3 /* BucketListTableViewController.swift */; };
+		CC3923C427661A4F00A086D3 /* AddItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923C327661A4F00A086D3 /* AddItemTableViewController.swift */; };
+		CC3923C92767237600A086D3 /* AddItemTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923C82767237600A086D3 /* AddItemTableViewControllerDelegate.swift */; };
+		CC3923CB27675DE300A086D3 /* SegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3923CA27675DE300A086D3 /* SegueIdentifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +42,6 @@
 		CC39238D27660FF800A086D3 /* BucketList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucketList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC39239027660FF800A086D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC39239227660FF800A086D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CC39239427660FF800A086D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CC39239727660FF800A086D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC39239927660FFA00A086D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC39239C27660FFA00A086D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +51,10 @@
 		CC3923AD27660FFA00A086D3 /* BucketListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BucketListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC3923B127660FFA00A086D3 /* BucketListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListUITests.swift; sourceTree = "<group>"; };
 		CC3923B327660FFA00A086D3 /* BucketListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CC3923C0276610E200A086D3 /* BucketListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListTableViewController.swift; sourceTree = "<group>"; };
+		CC3923C327661A4F00A086D3 /* AddItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemTableViewController.swift; sourceTree = "<group>"; };
+		CC3923C82767237600A086D3 /* AddItemTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemTableViewControllerDelegate.swift; sourceTree = "<group>"; };
+		CC3923CA27675DE300A086D3 /* SegueIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueIdentifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +105,10 @@
 		CC39238F27660FF800A086D3 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
+				CC3923C52766293000A086D3 /* models */,
+				CC3923C227661A1900A086D3 /* Controllers */,
 				CC39239027660FF800A086D3 /* AppDelegate.swift */,
 				CC39239227660FF800A086D3 /* SceneDelegate.swift */,
-				CC39239427660FF800A086D3 /* ViewController.swift */,
 				CC39239627660FF800A086D3 /* Main.storyboard */,
 				CC39239927660FFA00A086D3 /* Assets.xcassets */,
 				CC39239B27660FFA00A086D3 /* LaunchScreen.storyboard */,
@@ -125,6 +132,24 @@
 				CC3923B327660FFA00A086D3 /* BucketListUITestsLaunchTests.swift */,
 			);
 			path = BucketListUITests;
+			sourceTree = "<group>";
+		};
+		CC3923C227661A1900A086D3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CC3923C0276610E200A086D3 /* BucketListTableViewController.swift */,
+				CC3923C327661A4F00A086D3 /* AddItemTableViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CC3923C52766293000A086D3 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				CC3923C82767237600A086D3 /* AddItemTableViewControllerDelegate.swift */,
+				CC3923CA27675DE300A086D3 /* SegueIdentifiers.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +283,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC39239527660FF800A086D3 /* ViewController.swift in Sources */,
+				CC3923CB27675DE300A086D3 /* SegueIdentifiers.swift in Sources */,
+				CC3923C427661A4F00A086D3 /* AddItemTableViewController.swift in Sources */,
 				CC39239127660FF800A086D3 /* AppDelegate.swift in Sources */,
 				CC39239327660FF800A086D3 /* SceneDelegate.swift in Sources */,
+				CC3923C1276610E200A086D3 /* BucketListTableViewController.swift in Sources */,
+				CC3923C92767237600A086D3 /* AddItemTableViewControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
