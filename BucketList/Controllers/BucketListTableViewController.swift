@@ -8,29 +8,34 @@
 import UIKit
 
 class BucketListTableViewController: UITableViewController, AddItemTableViewDelegate, UINavigationControllerDelegate {
+
     
     @IBOutlet weak var addItemBarBtnItem: UIBarButtonItem!
     var listItems = ["Study Swift", "Read", "Play Video Games", "Paint", "Watch Movies"]
     
-  
+    // refrence to managed object context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var BucketItems: [BucketListItems]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        fetchItems()
     }
     // MARK: - Table view data source
-
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return listItems.count
+        return BucketItems?.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let item = listItems[indexPath.row]
-        cell.textLabel?.text = item
+        //let item = listItems[indexPath.row]
+        let item = BucketItems?[indexPath.row]
+        cell.textLabel?.text = item?.name
         return cell
     }
     
@@ -51,30 +56,18 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
     //swape to delete
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        listItems.remove(at: indexPath.row)
+//        BucketItems.remove(at: indexPath.row)
+        context.delete((BucketItems?[indexPath.row])!)
+        do{
+            try context.save()
+        }catch{
+            print("Failed to Delete Task")
+        }
+        fetchItems()
         tableView.reloadData()
     }
     
     
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == SegueIdentifiers().addItem{
-//        let navigationController = segue.destination as! UINavigationController
-//        let addItemNavController = navigationController.topViewController as! AddItemTableViewController
-//        addItemNavController.delegate = self
-//        }
-//        else if segue.identifier ==  SegueIdentifiers().editItem{
-//            let navigationController = segue.destination as! UINavigationController
-//            let addItemNavController = navigationController.topViewController as! AddItemTableViewController
-//            addItemNavController.delegate = self
-//            let indexPath = sender as! NSIndexPath
-//            addItemNavController.item = listItems[indexPath.row]
-//            addItemNavController.indexPath = indexPath
-//        }
-//
-//    }
-    
-   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! UINavigationController
         if let addVC = (vc.topViewController as? AddItemTableViewController) {
@@ -82,7 +75,7 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
                 addVC.delegate = self
             } else if let indexPath = sender as? IndexPath{
                 addVC.delegate = self
-                addVC.item = listItems[indexPath.row]
+                addVC.item = BucketItems?[indexPath.row].name
                 addVC.indexPath = indexPath as NSIndexPath
                 
             }
@@ -94,15 +87,44 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
         dismiss(animated: true, completion: nil)
     }
     
+    
     func savedItem(by controller: AddItemTableViewController, with text: String, atIndexPath: NSIndexPath?) {
-        if let index = atIndexPath {
-            listItems[index.row] = text
+        if let index = atIndexPath{
+            BucketItems?[index.row].name = text
             
-        } else {
-            listItems.append(text)
+            
+        } else{
+    
+        let newItem = BucketListItems(context: context)
+        newItem.name = text
+    
         }
-        tableView.reloadData()
+        
+        do{
+            try context.save()
+        }catch{
+            print("Failed to add Task")
+        }
+       
+        fetchItems()
         dismiss(animated: true, completion: nil)
     }
-
+    
+    //MARK: Core Data
+    
+    func fetchItems(){
+        //fetch data from core data to display it into table view
+        do{
+            BucketItems =  try context.fetch(BucketListItems.fetchRequest())
+            //since it is UI Work we reload on main thread (it is the job of main thread to update and handle UI)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+           
+        }catch{
+            print("Failed to retrieve Data")
+        }
+    }
 }
+
+
