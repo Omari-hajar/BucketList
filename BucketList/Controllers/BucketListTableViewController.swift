@@ -7,10 +7,12 @@
 
 import UIKit
 
-class BucketListTableViewController: UITableViewController, AddItemTableViewDelegate {
+class BucketListTableViewController: UITableViewController, AddItemTableViewDelegate, UINavigationControllerDelegate {
     
-    var listItems = ["Study Swift", "Yoga", "Play Video Games", "Paint", "Watch Movies"]
-
+    @IBOutlet weak var addItemBarBtnItem: UIBarButtonItem!
+    var listItems = ["Study Swift", "Read", "Play Video Games", "Paint", "Watch Movies"]
+    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +27,7 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let item = listItems[indexPath.row]
         cell.textLabel?.text = item
@@ -41,8 +44,10 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         performSegue(withIdentifier: "EditItemSegue", sender: indexPath)
+        
     }
     
+   
     //swape to delete
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -52,26 +57,40 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
     
     
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == SegueIdentifiers().addItem{
+//        let navigationController = segue.destination as! UINavigationController
+//        let addItemNavController = navigationController.topViewController as! AddItemTableViewController
+//        addItemNavController.delegate = self
+//        }
+//        else if segue.identifier ==  SegueIdentifiers().editItem{
+//            let navigationController = segue.destination as! UINavigationController
+//            let addItemNavController = navigationController.topViewController as! AddItemTableViewController
+//            addItemNavController.delegate = self
+//            let indexPath = sender as! NSIndexPath
+//            addItemNavController.item = listItems[indexPath.row]
+//            addItemNavController.indexPath = indexPath
+//        }
+//
+//    }
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueIdentifiers().addItem{
-        let navigationController = segue.destination as! UINavigationController
-        let addItemNavController = navigationController.topViewController as! AddItemTableViewController
-        addItemNavController.delegate = self
-        }
-        else if segue.identifier ==  SegueIdentifiers().editItem{
-            let navigationController = segue.destination as! UINavigationController
-            let addItemNavController = navigationController.topViewController as! AddItemTableViewController
-            addItemNavController.delegate = self
-            let indexPath = sender as! NSIndexPath
-            addItemNavController.item = listItems[indexPath.row]
-            addItemNavController.indexPath = indexPath
+        let vc = segue.destination as! UINavigationController
+        if let addVC = (vc.topViewController as? AddItemTableViewController) {
+            if (sender as? UIBarButtonItem) != nil {
+                addVC.delegate = self
+            } else if let indexPath = sender as? IndexPath{
+                addVC.delegate = self
+                addVC.item = listItems[indexPath.row]
+                addVC.indexPath = indexPath as NSIndexPath
+                
+            }
         }
     }
     
 
-    
     func cancelBtnPressed(by controller: AddItemTableViewController) {
-        print("Hidden Controller delegated")
         dismiss(animated: true, completion: nil)
     }
     
@@ -82,7 +101,6 @@ class BucketListTableViewController: UITableViewController, AddItemTableViewDele
         } else {
             listItems.append(text)
         }
-    
         tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }

@@ -38,6 +38,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addItemBarBtnItem" destination="vxe-cp-SgL" id="hqi-9C-zE6"/>
                         <segue destination="mrX-gk-IR1" kind="presentation" identifier="EditItemSegue" id="zLR-qz-YQ3"/>
                     </connections>
                 </tableViewController>

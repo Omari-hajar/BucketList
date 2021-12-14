@@ -9,9 +9,9 @@ import UIKit
 
 class AddItemTableViewController: UITableViewController {
     
-    weak var delegate: AddItemTableViewDelegate?
-    @IBOutlet weak var itemTextField: UITextField!
     
+    @IBOutlet weak var itemTextField: UITextField!
+    weak var delegate: AddItemTableViewDelegate?
     var item: String?
     var indexPath: NSIndexPath?
     
