@@ -15,13 +15,15 @@ class AddItemTableViewController: UITableViewController {
     var item: String?
     var indexPath: NSIndexPath?
     
+    var task: String?
+    var id: Int?
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if item != "" && item != nil {
-            itemTextField.text = item
+        if task != "" && task != nil {
+            itemTextField.text = task
         }
 
      
@@ -33,11 +35,33 @@ class AddItemTableViewController: UITableViewController {
     }
     
     @IBAction func saveItemBtnPressed(_ sender: UIBarButtonItem) {
-        var item = ""
-        if itemTextField.text != "" && itemTextField.text != nil {
-             item = itemTextField.text!
-        }
-        delegate?.savedItem(by: self, with: item, atIndexPath: indexPath)
+        
+//        if task != nil {
+//            if let  item = itemTextField.text {
+//                task = item
+//            }
+//            if let id = id {
+//                TaskApi.updateTask(id: id , objective: task!) { data, response, error in
+//                    print(id)
+//                    print(self.task!)
+//                }
+//            }
+//
+//        } else {
+            if let  item = itemTextField.text {
+                task = item
+            }
+            TaskApi.addTask(objective: task!) { data, response, error in
+                
+            }
+        
+        
+//        var item = ""
+//        if itemTextField.text != "" && itemTextField.text != nil {
+//             item = itemTextField.text!
+//        }
+       delegate?.savedItem(by: self, with: task!, atIndexPath: indexPath)
+       
     }
     
     // MARK: - Table view data source
